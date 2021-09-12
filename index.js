@@ -75,7 +75,7 @@ function welcome() {
             addEmployee();
             break;
           case "update an employee role":
-            updateEmployeeRole();
+            updateEmployee();
             break;
             default:
             //end process 
@@ -99,12 +99,13 @@ function welcome() {
   function viewAllRoles () {
     db.query(`SELECT * FROM role`, (err, rows) => 
     {
-        console.log(rows);
+        console.table(rows);
        welcome();
     });
     }
     function viewAllEmployees (){
-        db.query('SELECT * FROM employee', (err, rows) => 
+       db.query(' SELECT * FROM employee LEFT JOIN role ON employee.id = role.id LEFT JOIN department ON department.name = department_id;', (err, rows) => 
+       //db.query('SELECT employee.id,employee.first_name, employee.last_name,employee.manager_id FROM employee LEFT JOIN role ON ,role.title,department.name AS department, role.salary FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id' , (err, rows) => 
         {
             console.table(rows);
            welcome();
@@ -124,7 +125,7 @@ function welcome() {
     })
     .then(function(answer){
    
-        db.query('INSERT INTO department (name)VALUES ("${addedDepartment}")', (err, rows) =>    
+        db.query('INSERT INTO department (name) VALUES (?)', (answer.addedDepartment), (err, rows) =>    
              
         {
             console.table(rows);
@@ -152,15 +153,17 @@ function welcome() {
           type: "input",
           message: "What is the department id number?",
           name: "newDeptID"
+          
         }
       ])
-      .then(addRole =>{
+      .then(function(answer){
                     
-        db.query('INSERT INTO role (title,salary,department_id)VALUES ("${addedRole}","${newSalary}","${newDeptID}")', (err, rows) => 
+        db.query('INSERT INTO role (title,salary,department_id) VALUES(?,?,?)', [answer.addedRole,answer.newSalary,answer.newDeptID], (err, rows) => 
         
         {
            console.table(rows);
-           console.log("addedRole");
+
+           
            welcome();
         }       
         )}
@@ -191,10 +194,16 @@ function welcome() {
           name: "aMan_id"
         }
       ])
-      .then(addEmployee =>{
-                        
-        db.query('INSERT INTO employee(first_name,last_name,role_id,manager_id) VALUES ("${addedFs_name}","${addedL_name}","${roleId}","${aMan_id}")', (err, rows) => 
+      .then(function(answer){
         
+        db.query('INSERT INTO employee (first_name,last_name,role_id,manager_id) VALUES (?,?,?,?)', 
+        [
+            answer.addedFs_name,
+            answer.addedL_name,
+            answer.roleId,
+            answer.aMan_id
+        ],
+         (err, rows) => 
         {
             console.table(rows);
            welcome();
@@ -210,7 +219,7 @@ function welcome() {
       .prompt([
         {
           type: "input",
-          message: "Which employee would you like to update?",
+          message: "Which is the ID of the employee would you like to update?",
           name: "updateWorker"
         },
   
@@ -220,18 +229,19 @@ function welcome() {
           name: "updateRole"
         }
       ])
-      .then(updateEmployee => {
-        db.query ('UPDATE employee SET role_id = "${updateRole}" WHERE id = "${updateWorker}"')  
+      .then(function(answer) {
+        db.query ('UPDATE employee SET role_id = ? where id = ?', [answer.updateRole, answer.updateWorker] , (err, rows) => 
         {
-          console.table(rows);
-         welcome();
-      }       
-      });
+            console.table(rows);
+           welcome();
+        }       
+        )}
+        )};
   
   
   
  
-  }
+
    
   //Function to exit the program
   function quit() {
