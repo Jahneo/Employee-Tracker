@@ -22,14 +22,14 @@ THEN I am prompted to enter the employee’s first name, last name, role, and ma
 WHEN I choose to update an employee role
 THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
 # Mock-Up
-![Demo 1]('./assets/images/demo-01.gif)
-![Demo2]('./assets/images/demo-02.png)
+![Demo 1]('./assets/images/demo-01.gif')
+![Demo2]('./assets/images/demo-02.png')
 # Getting Started
 Use the MySQL2 package to connect to your MySQL database and perform queries
  Inquirer package to interact with the user via the command-line
  the console.table package to print MySQL rows to the console.
 # Schema Design
-![Schema]('./assets/images/schema.png)
+![Schema]('./assets/images/schema.png')
 # Criteria
 # Department
     * id
@@ -52,4 +52,20 @@ Use the MySQL2 package to connect to your MySQL database and perform queries
     * Delete departments, roles, and employees
     * View the total utilized budget of a department 
         -- ie the combined salaries of all employees in that department
-# Review
+# Results Experimenting with Insomnia
+![Insomnia]('./assets/images/insomnia1.PNG')
+![Insomnia]('./assets/images/insomnia_delete.png')
+![Insomnia]('./assets/images/insomnia_post.png')
+![Insomnia]('./assets/images/insomnia3.png')
+# Final Project
+# Video Walk Through
+[![Video]('./assets/images/video.png')](https://drive.google.com/file/d/1WEg2YiynahJ0_TvB1UwRRLqOroxEKsz9/preview)
+# Challenges
+Displaying Database Tables 
+
+# Github Respository
+[Repository](https://github.com/Jahneo/Employee-Tracker)
+
+#### [Jahneo@aim.com](mailto:Jahneo@aim.com)
+  [Github link](https://github.com/Jahneo) 
+

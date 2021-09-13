@@ -2,6 +2,7 @@ const fs = require ('fs');
 const inquirer = require('inquirer');
 const server = require('./server.js');
 const mysql = require('mysql2');
+const { DefaultDeserializer } = require('v8');
 
 
 
@@ -47,6 +48,7 @@ function welcome() {
             "add a role", 
             "add an employee", 
             "update an employee role",
+            "Delete a Department",
             "Quit"
         ],
         // using input to modify or diplay database
@@ -77,6 +79,9 @@ function welcome() {
           case "update an employee role":
             updateEmployee();
             break;
+          case "Delete a Department":
+            deleteDepartment();
+            break;
             default:
             //end process 
             quit();
@@ -104,8 +109,9 @@ function welcome() {
     });
     }
     function viewAllEmployees (){
+      // select all from employee and join with foreign key for roles and department
        db.query(' SELECT * FROM employee LEFT JOIN role ON employee.id = role.id LEFT JOIN department ON department.name = department_id;', (err, rows) => 
-       //db.query('SELECT employee.id,employee.first_name, employee.last_name,employee.manager_id FROM employee LEFT JOIN role ON ,role.title,department.name AS department, role.salary FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id' , (err, rows) => 
+       
         {
             console.table(rows);
            welcome();
@@ -237,9 +243,36 @@ function welcome() {
         }       
         )}
         )};
-  
-  
-  
+  //Function to delete an Employee
+    function deleteDepartment() {
+    inquirer
+      .prompt({
+          type: "list",
+          message: "Which  department would you like to delete?",
+          name: "deleteDept",
+          // giving choices
+          choices: [
+            "Sales",
+            "Legal",
+            "Finance",
+            "Engineering",
+            "Quit"
+          ],
+        })
+          .then(function(answers) {
+         
+          db.query('DELETE FROM department where department.name = ?', [answers.deleteDept] , (err, rows) => 
+          {
+        console.log("You have deleted " + answers.deleteDept);
+            welcome();
+          }
+          )}
+           
+          )}
+        
+        
+          
+        
  
 
    
