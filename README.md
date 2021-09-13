@@ -56,10 +56,10 @@ Use the MySQL2 package to connect to your MySQL database and perform queries
 ![Insomnia](./assets/images/insomnia1.PNG)
 ![Insomnia](./assets/images/insomnia_delete.png)
 ![Insomnia](./assets/images/insomnia_post.png)
-![Insomnia](./assets/images/insomnia3.png)
+![Insomnia](./assets/images/insomnia3.PNG)
 # Final Project
 # Video Walk Through
-[![Video](./assets/images/video.png)](https://drive.google.com/file/d/1WEg2YiynahJ0_TvB1UwRRLqOroxEKsz9/preview)
+[![Video](./assets/images/video.PNG)](https://drive.google.com/file/d/1WEg2YiynahJ0_TvB1UwRRLqOroxEKsz9/preview)
 # Challenges
 Displaying Database Tables 
 
